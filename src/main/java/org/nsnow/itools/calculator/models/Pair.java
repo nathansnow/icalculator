@@ -1,4 +1,4 @@
-package org.nsnow.itools.calculator;
+package org.nsnow.itools.calculator.models;
 
 public class Pair {
 

@@ -1,4 +1,9 @@
-package org.nsnow.itools.calculator;
+package org.nsnow.itools.calculator.utils;
+
+import org.nsnow.itools.calculator.Calculator;
+import org.nsnow.itools.calculator.models.Op;
+import org.nsnow.itools.calculator.models.Pair;
+import org.nsnow.itools.calculator.models.Record;
 
 import java.util.Stack;
 
@@ -71,6 +76,8 @@ public class ExpressionUtil {
         return resultStack;
     }
 
+
+
     /**
      * 后缀表达式求值
      * @param postfix 后缀表达式对战
@@ -94,12 +101,18 @@ public class ExpressionUtil {
 
             double num2 = stack.pop();
             double num1 = stack.pop();
+            String op = pair.getValue();
 
-            double result = CommonUtil.calculate(pair.getValue(),num1,num2);
+            double result = CommonUtil.calculate(op,num1,num2);
+
+            Calculator.saveRecord(new Record(num1, num2, op, result));
+
             stack.push(result);
         }
 
-
         return stack.pop();
     }
+
+
+
 }

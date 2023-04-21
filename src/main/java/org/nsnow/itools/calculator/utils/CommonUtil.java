@@ -1,4 +1,7 @@
-package org.nsnow.itools.calculator;
+package org.nsnow.itools.calculator.utils;
+
+import org.nsnow.itools.calculator.models.Op;
+import org.nsnow.itools.calculator.models.Pair;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
