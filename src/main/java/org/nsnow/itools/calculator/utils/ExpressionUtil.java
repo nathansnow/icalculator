@@ -26,7 +26,7 @@ public class ExpressionUtil {
                 //是数字
                 resultStack.push(pair.getValue());
                 //将解析到的值拿掉
-                expression = CommonUtil.cut(expression, pair.getPosition());
+                expression = CommonUtil.cutHead(expression, pair.getPosition());
                 continue;
             }
             Pair opPair = CommonUtil.parseOp(expression);
@@ -37,7 +37,7 @@ public class ExpressionUtil {
             String value = opPair.getValue();
             if (Op.LEFT_BRACKET.getOp().equals(value)) {
                 tmpStack.push(value);
-                expression = CommonUtil.cut(expression, opPair.getPosition());
+                expression = CommonUtil.cutHead(expression, opPair.getPosition());
             } else if (Op.RIGHT_BRACKET.getOp().equals(value)) {
                 while (!tmpStack.isEmpty() && !tmpStack.peek().equals(Op.LEFT_BRACKET.getOp())) {
                     resultStack.push(tmpStack.pop());
@@ -48,7 +48,7 @@ public class ExpressionUtil {
                 } else {
                     tmpStack.pop();
                 }
-                expression = CommonUtil.cut(expression, opPair.getPosition());
+                expression = CommonUtil.cutHead(expression, opPair.getPosition());
             } else{
 
                 while (!tmpStack.isEmpty() && Op.parseOp(value).getPriority() <= Op.parseOp(tmpStack.peek()).getPriority()) {
@@ -60,7 +60,7 @@ public class ExpressionUtil {
                 }
 
                 tmpStack.push(value);
-                expression = CommonUtil.cut(expression, opPair.getPosition());
+                expression = CommonUtil.cutHead(expression, opPair.getPosition());
             }
 
         }

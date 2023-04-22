@@ -12,30 +12,30 @@ public class Calculator {
 
     private static Stack<Record> recordStack = new Stack<>();
 
-    public static void redo() {
+    public static double redo() {
         if (recordStack.isEmpty()) {
             throw new IllegalArgumentException("no operation executed yet!");
         }
-        Record record = recordStack.pop();
+        Record record = recordStack.peek();
         double left = record.getResult();
         double right = record.getRight();
         String op = record.getOp();
         double newResult = CommonUtil.calculate(op, left, right);
         saveRecord(new Record(left, right, op, newResult));
-        System.out.println(newResult);
+        return newResult;
     }
 
-    public static void undo() {
+    public static double undo() {
         if (recordStack.isEmpty()) {
             throw new IllegalArgumentException("no operation executed yet!");
         }
-        Record record = recordStack.pop();
+        Record record = recordStack.peek();
         double left = record.getResult();
         double right = record.getRight();
         String op = Op.parseOp(record.getOp()).getReversedOp();
         double newResult = CommonUtil.calculate(op, left, right);
         removeTop();
-        System.out.println(newResult);
+        return newResult;
     }
 
     public static void saveRecord(Record opRecord) {
@@ -46,10 +46,11 @@ public class Calculator {
         recordStack.pop();
     }
 
+    //表达式：1.2+2*3-(4/2+2*3)-8
+    //结果应该是：-8.8
     public static void main(String[] args) {
+        System.out.println("请输入需要计算的表达式：");
         Scanner scanner = new Scanner(System.in);
-        //表达式：1.2+2*3-(4/2+2*3)-8
-        //结果应该是：-8.8
         String expression = scanner.next();
         expression = CommonUtil.removeBlank(expression);
         //中缀表达式转为后缀表达式
@@ -58,12 +59,22 @@ public class Calculator {
         while (!postStack.isEmpty()) {
             reversedStack.push(postStack.pop());
         }
+
+        double result = ExpressionUtil.evaluatePostfix(reversedStack);
         //求值后缀表达式
-        System.out.println(ExpressionUtil.evaluatePostfix(reversedStack));
+        System.out.println("表达式计算结果为：" + result);
 
-        redo();
+        double redoResult = redo();
 
-        undo();
+        System.out.println("重复上一次操作后的结果为：" + redoResult);
+
+        double undoResult = undo();
+
+        System.out.println("撤销上一次操作后的结果为：" + undoResult);
+
+        undoResult = undo();
+
+        System.out.println("撤销上一次操作后的结果为：" + undoResult);
     }
 
 }
