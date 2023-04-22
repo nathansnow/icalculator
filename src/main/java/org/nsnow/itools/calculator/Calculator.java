@@ -75,6 +75,10 @@ public class Calculator {
         undoResult = undo();
 
         System.out.println("撤销上一次操作后的结果为：" + undoResult);
+
+        redoResult = redo();
+
+        System.out.println("重复上一次操作后的结果为：" + redoResult);
     }
 
 }
