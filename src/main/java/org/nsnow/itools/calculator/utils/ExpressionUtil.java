@@ -51,7 +51,7 @@ public class ExpressionUtil {
                 expression = CommonUtil.cutHead(expression, opPair.getPosition());
             } else{
 
-                while (!tmpStack.isEmpty() && Op.parseOp(value).getPriority() <= Op.parseOp(tmpStack.peek()).getPriority()) {
+                while (!tmpStack.isEmpty() && Op.genPriority(value) <= Op.genPriority(tmpStack.peek())) {
                     if (tmpStack.peek().equals(Op.LEFT_BRACKET.getOp())) {
                         throw new IllegalArgumentException("Invalid Expression");
                     }

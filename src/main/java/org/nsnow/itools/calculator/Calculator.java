@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class Calculator {
 
-    private static Stack<Record> recordStack = new Stack<>();
+    private final static Stack<Record> recordStack = new Stack<>();
 
     public static double redo() {
         if (recordStack.isEmpty()) {
@@ -32,7 +32,7 @@ public class Calculator {
         Record record = recordStack.peek();
         double left = record.getResult();
         double right = record.getRight();
-        String op = Op.parseOp(record.getOp()).getReversedOp();
+        String op = Op.getReversedOpBy(record.getOp());
         double newResult = CommonUtil.calculate(op, left, right);
         removeTop();
         return newResult;

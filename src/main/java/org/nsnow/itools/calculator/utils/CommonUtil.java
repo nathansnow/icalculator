@@ -18,6 +18,7 @@ public class CommonUtil {
      * 这里要注意精度
      */
     public static double calculate(String op, double num1, double num2) {
+        if (op == null) throw new IllegalArgumentException("invalid expression!");
         //防止精度丢失，必须要将数字转成字符串来构造BigDecimal，不然没效果
         BigDecimal n1 = new BigDecimal(String.valueOf(num1));
         BigDecimal n2 = new BigDecimal(String.valueOf(num2));

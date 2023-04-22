@@ -36,5 +36,16 @@ public enum Op {
         return null;
     }
 
+    public static String getReversedOpBy(String op){
+        Op opEnum = parseOp(op);
+        if(opEnum == null) return null;
+        return opEnum.getReversedOp();
+    }
+
+    public static int genPriority(String op){
+        Op opEnum = parseOp(op);
+        if(opEnum == null) return -1;
+        return opEnum.getPriority();
+    }
 
 }
